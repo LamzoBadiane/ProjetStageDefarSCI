@@ -32,6 +32,12 @@ class User extends Authenticatable
     public function applications()
     {
         return $this->hasMany(Application::class);
+        }
+    public function student()
+    {
+        return $this->hasOne(\App\Models\student::class);
     }
+
+
 
 }

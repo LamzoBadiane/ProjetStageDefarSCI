@@ -133,7 +133,6 @@
     <div class="d-flex flex-wrap justify-content-center mb-5">
         <div class="stats-badge">✅ Validées : {{ $offers->where('status', 'validée')->count() }}</div>
         <div class="stats-badge">⏳ En attente : {{ $offers->where('status', 'en_attente')->count() }}</div>
-        <div class="stats-badge">❌ Refusées : {{ $offers->where('status', 'refusée')->count() }}</div>
         <div class="stats-badge">📦 Total : {{ $offers->count() }}</div>
     </div>
 
@@ -182,7 +181,6 @@
                         <select name="status" onchange="this.form.submit()" class="form-select form-select-sm shadow-sm">
                             <option value="en_attente" {{ $offer->status == 'en_attente' ? 'selected' : '' }}>⏳ En attente</option>
                             <option value="validée" {{ $offer->status == 'validée' ? 'selected' : '' }}>✅ Validée</option>
-                            <option value="refusée" {{ $offer->status == 'refusée' ? 'selected' : '' }}>❌ Refusée</option>
                         </select>
                     </form>
                 </div>

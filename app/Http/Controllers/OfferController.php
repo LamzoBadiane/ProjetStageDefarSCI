@@ -12,8 +12,8 @@ class OfferController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Offer::query();
-
+        $query = Offer::where('status', 'validée')
+            ->whereDate('deadline', '>=', now()); // exclut les offres expirées;
         // 🔍 Recherche par titre ou description
         if ($request->filled('search')) {
             $query->where(function($q) use ($request) {

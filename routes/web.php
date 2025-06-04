@@ -11,16 +11,20 @@ use App\Http\Controllers\Auth\CompanyAuthController;
 use App\Http\Controllers\CompanyDashboardController;
 use App\Http\Controllers\Company\OfferController as CompanyOfferController;
 use App\Http\Controllers\Company\ApplicationController as CompanyApplicationController;
+use App\Http\Controllers\Company\StudentController;
 
 // 🌍 Page d'accueil
-Route::get('/', fn() => view('welcome'));
+Route::get('/', fn () => view('welcome'));
 
 // 🔐 Redirection selon rôle
-Route::get('/dashboard', [RedirectController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [RedirectController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
 // 👨‍🎓 Espace Étudiant
 Route::middleware(['auth'])->group(function () {
-    Route::get('/student/dashboard', fn() => view('student.dashboard'))->name('student.dashboard');
+    // Dashboard étudiant
+    Route::get('/student/dashboard', fn () => view('student.dashboard'))->name('student.dashboard');
 
     // Profil Étudiant
     Route::get('/student/profile', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
@@ -29,11 +33,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/student/profile/store', [StudentProfileController::class, 'store'])->name('student.profile.store');
 });
 
-// 📢 Offres disponibles
+// 📢 Offres disponibles (publiques)
 Route::get('/offers', [OfferController::class, 'index'])->name('offers.index');
 Route::get('/offers/{id}', [OfferController::class, 'show'])->name('offers.show');
 
-// 📄 Candidatures
+// 📄 Candidatures (authentifiées)
 Route::middleware(['auth'])->group(function () {
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
     Route::post('/applications/{offerId}', [ApplicationController::class, 'store'])->name('applications.store');
@@ -41,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/applications/{id}/edit', [ApplicationController::class, 'edit'])->name('applications.edit');
     Route::put('/applications/{id}', [ApplicationController::class, 'update'])->name('applications.update');
     Route::delete('/applications/{id}', [ApplicationController::class, 'destroy'])->name('applications.destroy');
+    Route::patch('/company/applications/{id}/status', [ApplicationController::class, 'updateStatus'])->name('company.applications.updateStatus');
 });
 
 // ⚙️ Profil Utilisateur Authentifié
@@ -71,11 +76,15 @@ Route::prefix('company')->name('company.')->middleware(['auth:company'])->group(
     Route::get('/applications', [CompanyApplicationController::class, 'index'])->name('applications.index');
     Route::get('/applications/{id}', [CompanyApplicationController::class, 'show'])->name('applications.show');
     Route::put('/applications/{id}/update-status', [CompanyApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
-    // Route::post('/applications/{id}/accept', [CompanyApplicationController::class, 'accept'])->name('applications.accept');
+
+    // Voir profil d’un étudiant
+    Route::get('/students/{id}/profile', [StudentController::class, 'show'])->name('students.profile');
 });
 
 // 🛠️ Espace Admin
-Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->middleware(['auth'])->name('admin.dashboard');
+Route::get('/admin/dashboard', fn () => view('admin.dashboard'))
+    ->middleware(['auth'])
+    ->name('admin.dashboard');
 
 // 📜 Auth routes (Jetstream/Breeze/etc.)
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

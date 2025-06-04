@@ -9,11 +9,11 @@ use Carbon\Carbon;
 class DeleteExpiredOffers extends Command
 {
     protected $signature = 'offers:delete-expired';
-    protected $description = 'Supprimer automatiquement les offres expirées';
+    protected $description = 'Supprime les offres dont la date limite est dépassée';
 
     public function handle()
     {
         $deleted = Offer::where('deadline', '<', Carbon::today())->delete();
-        $this->info("{$deleted} offres expirées supprimées.");
+        $this->info("{$deleted} offre(s) expirée(s) supprimée(s).");
     }
 }

@@ -55,6 +55,7 @@ class StudentProfileController extends Controller
         }
 
         Student::create([
+            'user_id' => Auth::id(),
             'cin' => $request->cin,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -89,7 +90,7 @@ class StudentProfileController extends Controller
             'cv' => 'nullable|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        $student = Student::where('email', Auth::user()->email)->first();
+        $student = Student::where('user_id', Auth::id())->first();
 
         if (!$student) {
             return redirect()->route('student.profile.create')->with('warning', 'Veuillez d\'abord créer votre profil.');

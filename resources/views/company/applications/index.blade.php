@@ -29,18 +29,22 @@
                     <td>{{ $app->user->name ?? 'Nom inconnu' }} {{ $app->user->prenom ?? '' }}</td>
                     <td>{{ $app->offer->title ?? 'Offre supprimée' }}</td>
                     <td>
-                        @if($app->motivation)
+                        @if($app->motivation_file)
+                            <a href="{{ asset('storage/' . $app->motivation_file) }}" target="_blank" class="btn btn-sm btn-outline-info">📄 Fichier</a>
+                        @elseif($app->motivation)
                             <button class="btn btn-sm btn-info" data-bs-toggle="collapse" data-bs-target="#motivation-{{ $app->id }}">📜 Voir</button>
-                            <div id="motivation-{{ $app->id }}" class="collapse mt-2">{{ $app->motivation }}</div>
+                            <div id="motivation-{{ $app->id }}" class="collapse mt-2 text-start">{{ $app->motivation }}</div>
                         @else
                             <span class="text-muted">Aucune</span>
                         @endif
                     </td>
                     <td>
-                        @if($app->cv_file)
-                            <a href="{{ asset('storage/' . $app->cv_file) }}" target="_blank" class="btn btn-sm btn-outline-primary">📎 Voir CV</a>
+                        @if($app->user)
+                            <a href="{{ route('company.students.profile', $app->user->id) }}" class="btn btn-sm btn-outline-secondary">
+                                👤 Voir Profil Étudiant
+                            </a>
                         @else
-                            <span class="text-muted">Aucun CV</span>
+                            <span class="text-muted">Profil introuvable</span>
                         @endif
                     </td>
                     <td>

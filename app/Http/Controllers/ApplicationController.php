@@ -75,6 +75,13 @@ class ApplicationController extends Controller
     public function edit($id)
     {
         $application = Application::with('offer')->findOrFail($id);
+
+        // Empêcher la modification si le statut est bloqué
+        if (in_array($application->status, ['refusée', 'acceptée', 'embauchée'])) {
+            return redirect()->route('applications.index')
+                ->with('warning', 'Vous ne pouvez plus modifier cette candidature.');
+        }
+
         return view('applications.edit', compact('application'));
     }
 

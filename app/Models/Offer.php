@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Offer extends Model
 {
@@ -30,5 +31,8 @@ class Offer extends Model
     {
         return $this->belongsTo(Company::class);
     }
-
+    public function isExpired()
+    {
+        return Carbon::now()->gt(Carbon::parse($this->deadline));
+    }
 }
