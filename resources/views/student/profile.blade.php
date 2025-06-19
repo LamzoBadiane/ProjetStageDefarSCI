@@ -59,7 +59,7 @@
         <div class="col-md-4 text-center">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt="Avatar" class="img-fluid rounded-circle shadow profile-avatar">
-            <h5 class="mt-3">{{ Auth::user()->name }}</h5>
+            <h5 class="mt-3">{{ Auth::user()->first_name }} {{ Auth::user()->name }}</h5>
             <p class="text-muted">Étudiant</p>
         </div>
 

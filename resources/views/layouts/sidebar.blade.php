@@ -101,6 +101,17 @@
             <i class="bi bi-person me-2"></i> Profil
         </a>
 
+        <a href="{{ route('student.interviews.index') }}" 
+            class="{{ request()->routeIs('student.interviews.index') ? 'active' : '' }}">
+            <i class="bi bi-calendar-event"></i> Mes entretiens
+        </a>
+        <a href="{{ route('student.account.edit') }}" 
+            class="{{ request()->routeIs('student.account.*') ? 'active' : '' }}">
+            <i class="bi bi-person-circle"></i> Mon compte
+        </a>
+        <a href="#"><i class="bi bi-gear"></i> Paramètres</a>
+
+
         <form method="POST" action="{{ route('logout') }}" class="mt-4 px-3">
             @csrf
             <button class="btn btn-outline-light w-100">

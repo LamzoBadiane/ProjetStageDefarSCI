@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('motivation_file')->nullable(); // Fichier PDF/DOC
             $table->string('cv_file')->nullable(); // Fichier CV PDF/DOC
             $table->string('status')->default('en attente');
+            $table->softDeletes(); // dans la migration
             $table->timestamps();
         });
     }

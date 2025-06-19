@@ -77,11 +77,6 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-md-4 desc-title">✉️ Motivation :</div>
-            <div class="col-md-8">{{ $application->motivation }}</div>
-        </div>
-
-        <div class="row mb-3">
             <div class="col-md-4 desc-title">📄 Fichier joint :</div>
             <div class="col-md-8">
                 @if($application->motivation_file)

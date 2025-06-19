@@ -26,7 +26,7 @@
             <tbody>
                 @foreach($applications as $app)
                 <tr>
-                    <td>{{ $app->user->name ?? 'Nom inconnu' }} {{ $app->user->prenom ?? '' }}</td>
+                    <td>{{ $app->user->first_name?? '' }} {{ $app->user->name ?? 'Nom inconnu' }}</td>
                     <td>{{ $app->offer->title ?? 'Offre supprimée' }}</td>
                     <td>
                         @if($app->motivation_file)

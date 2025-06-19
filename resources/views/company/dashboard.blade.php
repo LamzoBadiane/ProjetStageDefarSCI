@@ -245,7 +245,7 @@ body.dark-mode .calendar-box {
                             <strong>{{ $app->offer->title ?? 'Offre supprimée' }}</strong>
                             <span class="badge bg-success">{{ $app->created_at->format('d/m/Y') }}</span>
                         </div>
-                        <small class="text-muted">👤 {{ $app->user->name ?? 'Nom inconnu' }} {{ $app->user->prenom ?? '' }}</small>
+                        <small class="text-muted">👤 {{ $app->user->name ?? 'Nom inconnu' }} {{ $app->user->first_name ?? '' }}</small>
                     </li>
                 @empty
                     <li class="list-group-item text-muted">Aucune candidature récente.</li>

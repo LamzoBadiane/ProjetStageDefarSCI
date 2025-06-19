@@ -8,7 +8,7 @@
 
     <div class="card shadow-sm p-4">
         <h4 class="mb-3">Informations du candidat</h4>
-        <p><strong>Nom :</strong> {{ $application->user->name ?? 'Nom inconnu' }} {{ $application->user->prenom ?? '' }}</p>
+        <p><strong>Nom :</strong> {{ $application->user->name ?? 'Nom inconnu' }} {{ $application->user->first_name ?? '' }}</p>
         <p><strong>Email :</strong> {{ $application->user->email ?? '-' }}</p>
 
         <h4 class="mt-4">Offre concernée</h4>

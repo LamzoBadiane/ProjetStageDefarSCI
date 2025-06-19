@@ -42,6 +42,15 @@
     <!-- 🎯 Titre et résumé -->
     <div class="offer-header">
         <h2 class="text-primary mb-3">🎯 {{ $offer->title }}</h2>
+        <p class="offer-meta"><span class="label-strong">Entreprise :</span> {{ $offer->company->name  }}
+            @if($offer->company)
+                <div class="mt-3">
+                    <a href="{{ route('public.company.profile', $offer->company->id) }}" class="btn btn-outline-secondary btn-sm mt-2">
+                        👁️ Voir le profil entreprise
+                    </a>
+                </div>
+            @endif
+        </p>
         <p class="offer-meta"><span class="label-strong">Domaine :</span> {{ $offer->domain }}</p>
         <p class="offer-meta"><span class="label-strong">Type :</span> {{ $offer->type }}</p>
         <p class="offer-meta"><span class="label-strong">Lieu :</span> {{ $offer->location }}</p>
@@ -73,16 +82,10 @@
 
         <form action="{{ route('applications.store', $offer->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-
-            <div class="mb-3">
-                <label for="motivation_text" class="form-label">✍️ Lettre de motivation (texte)</label>
-                <textarea name="motivation_text" id="motivation_text" rows="4" class="form-control" placeholder="Expliquez vos motivations...">{{ old('motivation_text') }}</textarea>
-            </div>
-
             <div class="mb-3">
                 <label for="motivation_file" class="form-label">📎 Lettre de motivation (fichier PDF/DOC)</label>
                 <input type="file" name="motivation_file" id="motivation_file" class="form-control" accept=".pdf,.doc,.docx">
-                <small class="text-muted">Optionnel – max 5 Mo</small>
+                <small class="text-muted">Optionnel – max 2 Mo</small>
             </div>
 
             <button type="submit" class="btn btn-success btn-apply">

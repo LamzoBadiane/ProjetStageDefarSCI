@@ -64,8 +64,7 @@
                 <tr>
                     <th>📄 Offre</th>
                     <th>📌 Statut</th>
-                    <th>✍️ Motivation</th>
-                    <th>📎 Fichier</th>
+                    <th>📎 Lettre de Motivation</th>
                     <th>📅 Date</th>
                     <th>🔍 Action</th>
                 </tr>
@@ -82,13 +81,6 @@
                             @endif">
                             {{ ucfirst($app->status) }}
                         </span>
-                    </td>
-                    <td>
-                        @if($app->motivation)
-                            {{ \Illuminate\Support\Str::limit($app->motivation, 50) }}
-                        @else
-                            <span class="text-muted">Aucune</span>
-                        @endif
                     </td>
                     <td>
                         @if($app->motivation_file)

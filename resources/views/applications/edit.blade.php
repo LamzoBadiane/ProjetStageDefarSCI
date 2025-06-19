@@ -48,7 +48,7 @@
 <div class="container py-5 fade-in">
     <h2 class="text-primary mb-4">✏️ Modifier ma candidature</h2>
 
-    <p class="text-muted">Vous pouvez modifier votre message de motivation ou joindre un nouveau fichier.</p>
+    <p class="text-muted">Vous pouvez un joindre un nouveau fichier.</p>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -63,11 +63,6 @@
     <form action="{{ route('applications.update', $application->id) }}" method="POST" enctype="multipart/form-data" class="form-section">
         @csrf
         @method('PUT')
-
-        <div class="mb-4">
-            <label for="motivation" class="form-label"><i class="bi bi-chat-left-text"></i> Texte de motivation</label>
-            <textarea name="motivation" id="motivation" rows="5" class="form-control" placeholder="Expliquez pourquoi vous êtes le bon candidat..." required>{{ old('motivation', $application->motivation) }}</textarea>
-        </div>
 
         <div class="mb-4">
             <label for="motivation_file" class="form-label"><i class="bi bi-paperclip"></i> Fichier joint</label>

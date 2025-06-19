@@ -31,7 +31,7 @@
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                  alt="Avatar Étudiant"
                  class="img-fluid rounded-circle shadow profile-avatar">
-            <h5 class="mt-3">{{ $user->name ?? 'Nom' }} {{ $user->prenom ?? '' }}</h5>
+            <h5 class="mt-3">{{ $user->first_name?? 'prenom' }} {{ $user->name ?? 'Nom' }}</h5>
             <p class="text-muted">Étudiant(e) inscrit(e)</p>
         </div>
 

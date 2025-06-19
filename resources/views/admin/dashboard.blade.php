@@ -1,30 +1,37 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-xl font-bold">Tableau de bord Administrateur</h2>
-    </x-slot>
+@extends('admin.layouts.master')
 
-    <div class="p-6 space-y-4">
-        <p class="text-gray-700">Bienvenue, {{ Auth::user()->name }} !</p>
+@section('title', 'Tableau de bord')
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-4 shadow rounded-lg">
-                <h3 class="text-lg font-semibold">📈 Statistiques générales</h3>
-                <ul class="list-disc pl-4 text-sm">
-                    <li>Nombre d'étudiants inscrits</li>
-                    <li>Nombre d'entreprises</li>
-                    <li>Nombre de candidatures</li>
-                </ul>
+@section('content')
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3><i class="bi bi-speedometer2"></i> Tableau de bord</h3>
+        <span class="badge bg-success">Bienvenue {{ auth()->user()->first_name ?? 'Admin' }}</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card border-primary shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-mortarboard-fill"></i> Étudiants</h5>
+                    <p class="card-text fs-4">{{ $students ?? 0 }}</p>
+                </div>
             </div>
-
-            <div class="bg-white p-4 shadow rounded-lg">
-                <h3 class="text-lg font-semibold">🛠️ Gestion des utilisateurs</h3>
-                <a href="{{ route('admin.users.index') }}" class="text-blue-600 hover:underline">Voir la liste</a>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-info shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-buildings"></i> Entreprises</h5>
+                    <p class="card-text fs-4">{{ $companies ?? 0 }}</p>
+                </div>
             </div>
-
-            <div class="bg-white p-4 shadow rounded-lg">
-                <h3 class="text-lg font-semibold">📝 Offres en attente</h3>
-                <a href="{{ route('admin.offers.pending') }}" class="text-blue-600 hover:underline">Modérer les offres</a>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-warning shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-briefcase-fill"></i> Offres</h5>
+                    <p class="card-text fs-4">{{ $offers ?? 0 }}</p>
+                </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

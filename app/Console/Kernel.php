@@ -14,7 +14,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('offers:delete-expired')->daily();
+        $schedule->command('companies:delete-refused')->everyMinute();
+    
     }
+
 
     /**
      * Register the commands for the application.

@@ -33,11 +33,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="motivation" class="form-label">Lettre de motivation (texte)</label>
-            <textarea name="motivation" id="motivation" rows="4" class="form-control">{{ old('motivation') }}</textarea>
-        </div>
-
-        <div class="mb-3">
             <label for="motivation_file" class="form-label">Lettre de motivation (fichier PDF/DOC)</label>
             <input type="file" name="motivation_file" id="motivation_file" class="form-control" accept=".pdf,.doc,.docx">
         </div>

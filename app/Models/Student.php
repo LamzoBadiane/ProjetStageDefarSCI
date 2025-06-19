@@ -23,4 +23,13 @@ class Student extends Model
         'education',
         'skills',
     ];
+    public function applications()
+    {
+        return $this->hasMany(\App\Models\Application::class, 'user_id', 'user_id');
+    }
+    public function interviews()
+    {
+        return $this->hasMany(\App\Models\Interview::class, 'user_id', 'user_id');
+    }
+
 }

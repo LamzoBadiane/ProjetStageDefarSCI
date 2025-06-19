@@ -12,6 +12,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        'first_name',
         'name',
         'email',
         'password',
@@ -37,7 +38,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(\App\Models\student::class);
     }
+    public function fullName()
+    {
+        if ($this->student) {
+            return $this->student->first_name . ' ' . $this->student->last_name;
+        }
 
-
+        return $this->name;
+    }
 
 }
