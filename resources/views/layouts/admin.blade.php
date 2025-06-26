@@ -84,18 +84,26 @@
         <a href="{{ route('admin.companies.index') }}" class="nav-link {{ request()->routeIs('admin.companies.*') ? 'active' : '' }}">
             <i class="bi bi-building"></i> Entreprises
         </a>
-        <a href="#" class="nav-link {{ request()->routeIs('admin.offers.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.offers.index') }}" class="nav-link {{ request()->routeIs('admin.offers.*') ? 'active' : '' }}">
             <i class="bi bi-briefcase"></i> Offres
         </a>
-        <a href="#" class="nav-link {{ request()->routeIs('admin.applications.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.applications.index') }}" class="nav-link {{ request()->routeIs('admin.applications.*') ? 'active' : '' }}">
             <i class="bi bi-send-check"></i> Candidatures
         </a>
-        <a href="#" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.settings.index') }}" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
             <i class="bi bi-gear"></i> Paramètres
         </a>
-        <a href="{{ route('admin.logout') }}" class="nav-link text-danger mt-auto">
+        <!-- Bouton Déconnexion (link déguisé en POST) -->
+        <a href="#"
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+        class="nav-link text-danger mt-auto">
             <i class="bi bi-box-arrow-right"></i> Déconnexion
         </a>
+        <!-- Formulaire POST caché -->
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+
     </div>
 
     <!-- Header -->

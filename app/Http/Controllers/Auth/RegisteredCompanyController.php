@@ -44,6 +44,7 @@ class RegisteredCompanyController extends Controller
             'country' => $request->country,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'status' => 'en attente',
         ]);
 
         Auth::guard('company')->login($company);

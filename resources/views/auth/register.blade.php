@@ -107,15 +107,23 @@
                             required
                         >
                             <option value="">-- Sélectionnez un rôle --</option>
-                            <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>Étudiant</option>
-                            <option value="company" {{ old('role') == 'company' ? 'selected' : '' }}>Entreprise</option>
-                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrateur</option>
+
+                            @if($settings['registration_students_enabled'] === 'yes')
+                                <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>Étudiant</option>
+                            @endif
+
+                            @if($settings['registration_companies_enabled'] === 'yes')
+                                <option value="company" {{ old('role') == 'company' ? 'selected' : '' }}>Entreprise</option>
+                            @endif
+
+                            @if($settings['registration_admins_enabled'] === 'yes')
+                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrateur</option>
+                            @endif
                         </select>
                         @error('role')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-
                     {{-- Bouton --}}
                     <button type="submit" class="btn w-100 text-white" style="background-color: #343a40;">
                         S'inscrire

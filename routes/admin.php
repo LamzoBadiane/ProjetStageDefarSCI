@@ -26,6 +26,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->as('admin.')->group(function
     Route::put('companies/{id}/refuse', [CompanyController::class, 'refuseCompany'])->name('companies.refuse');
     Route::post('/{company}/validate', [CompanyController::class, 'validateCompany'])->name('validate');
     Route::post('/{company}/reject', [CompanyController::class, 'rejectCompany'])->name('reject');
+    Route::put('companies/{company}/status', [CompanyController::class, 'updateStatus'])->name('companies.updateStatus');
+
 });
 
 // Vérification d'entreprise

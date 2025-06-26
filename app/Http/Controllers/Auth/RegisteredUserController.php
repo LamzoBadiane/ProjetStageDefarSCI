@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Setting;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +21,13 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.register', [
+            'settings' => [
+                'registration_students_enabled' => Setting::get('registration_students_enabled', 'yes'),
+                'registration_companies_enabled' => Setting::get('registration_companies_enabled', 'yes'),
+                'registration_admins_enabled' => Setting::get('registration_admins_enabled', 'no'),
+            ]
+        ]);
     }
 
     /**
@@ -35,24 +42,32 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => 'required|in:student,company,admin', // validation du rôle
+            'role' => 'required|in:student,company,admin',
         ]);
 
+        // ❌ Vérification avant création
+        if ($request->role === 'student' && Setting::get('registration_students_enabled') !== 'yes') {
+            return redirect()->route('register')->withErrors(['role' => 'Les inscriptions pour les étudiants sont désactivées.']);
+        }
+
+        if ($request->role === 'company' && Setting::get('registration_companies_enabled') !== 'yes') {
+            return redirect()->route('register')->withErrors(['role' => 'Les inscriptions pour les entreprises sont désactivées.']);
+        }
+        if ($request->role === 'admin' && Setting::get('registration_admins_enabled') !== 'yes') {
+            return redirect()->route('register')->withErrors(['role' => 'Les inscriptions pour les administrateurs sont désactivées.']);
+        }
+        // ✅ Création de l'utilisateur
         $user = User::create([
             'first_name' => $request->first_name,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role, // Ajout du rôle
+            'role' => $request->role,
         ]);
 
         event(new Registered($user));
 
-        // Auth::login($user);
-
-        // return redirect(RouteServiceProvider::HOME);
-
         return redirect()->route('login')->with('status', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
-
     }
+
 }

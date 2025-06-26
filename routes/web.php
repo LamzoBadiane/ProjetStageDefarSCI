@@ -28,6 +28,11 @@ use App\Http\Controllers\Student\{
     AccountController
 };
 
+use App\Http\Controllers\Admin\OfferController as AdminOfferController;
+use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
+use App\Http\Controllers\Admin\SettingController;
+
+
 // 🌍 Page d'accueil
 Route::get('/', fn () => view('welcome'));
 
@@ -98,14 +103,14 @@ Route::post('/logout/company', [CompanyAuthController::class, 'logout'])->name('
 // ====================================================
 // 🏢 Interface entreprise (auth:company)
 // ====================================================
-Route::prefix('company')->name('company.')->middleware(['auth:company'])->group(function () {
 
-    // Vérification en attente
+// Pages d'attente / refus / vérification
+Route::middleware('auth:company')->prefix('company')->name('company.')->group(function () {
     Route::get('/verify', [VerificationController::class, 'show'])->name('verification');
     Route::post('/verify', [VerificationController::class, 'submit'])->name('verification.submit');
 
-    // Si non validée
     Route::get('/en-attente', fn () => view('company.awaiting'))->name('awaiting');
+    Route::get('/refuse', fn () => view('company.refused'))->name('refused');
 });
 
 // ✅ Toutes ces routes sont protégées par le middleware de validation
@@ -154,11 +159,20 @@ Route::prefix('company')->name('company.')->middleware(['auth:company', 'company
     });
 });
 
-Route::post('/admin/companies/{id}/reject', [\App\Http\Controllers\Admin\CompanyController::class, 'refuseCompany'])
-    ->name('admin.companies.reject');
-Route::post('/admin/companies/{id}/validate', [\App\Http\Controllers\Admin\CompanyController::class, 'validateCompany'])
-    ->name('admin.companies.validate');
+Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
+    Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
 
+    Route::get('/offers', [AdminOfferController::class, 'index'])->name('offers.index');
+    Route::get('/offers/{id}', [AdminOfferController::class, 'show'])->name('offers.show');
+    Route::put('/offers/{id}/status', [AdminOfferController::class, 'updateStatus'])->name('offers.updateStatus');
+    Route::delete('/offers/{id}', [AdminOfferController::class, 'destroy'])->name('offers.destroy');
+
+    Route::get('/applications', [AdminApplicationController::class, 'index'])->name('applications.index');
+    Route::get('/applications/{id}', [AdminApplicationController::class, 'show'])->name('applications.show');
+    Route::delete('/applications/{id}', [AdminApplicationController::class, 'destroy'])->name('applications.destroy');
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+});
 
 
 // 🌐 Profil public entreprise (visiteurs/étudiants)

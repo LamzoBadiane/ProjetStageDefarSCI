@@ -9,26 +9,43 @@ use Illuminate\Support\Facades\Storage;
 
 class VerificationController extends Controller
 {
+    /**
+     * Redirige vers le formulaire de vérification si besoin.
+     */
     public function index()
     {
         $company = Auth::guard('company')->user();
 
         // Si l'entreprise est encore en attente ET qu'il manque des infos de vérification
         if (
-            $company->status === 'pending' &&
-            (!$company->ninea || !$company->rccm || !$company->company_story || !$company->document)
+            $company->status === 'en attente' &&
+            (
+                !$company->ninea ||
+                !$company->rccm ||
+                !$company->company_story ||
+                !$company->document
+            )
         ) {
-            return redirect()->route('company.verification')->with('error', 'Veuillez d’abord compléter vos informations pour la vérification.');
+            return redirect()->route('company.verification')
+                ->with('error', 'Veuillez d’abord compléter vos informations pour la vérification.');
         }
 
-        return view('company.dashboard');
+        // Sinon on l’envoie vers le dashboard (protégé par middleware)
+        return redirect()->route('company.dashboard');
     }
+
+    /**
+     * Affiche le formulaire de vérification.
+     */
     public function show()
     {
         $company = Auth::guard('company')->user();
         return view('company.verify', compact('company'));
     }
 
+    /**
+     * Soumet les informations de vérification.
+     */
     public function submit(Request $request)
     {
         $company = Auth::guard('company')->user();
@@ -53,9 +70,10 @@ class VerificationController extends Controller
             'contact_email' => $request->contact_email,
             'company_story' => $request->company_story,
             'document' => $path,
-            'status' => 'pending', // En attente de validation
+            'status' => 'en attente', // En attente de validation
         ]);
 
-        return redirect()->back()->with('success', '✅ Votre demande de vérification a été soumise avec succès. Elle sera examinée par l’administration.');
+        return redirect()->route('company.awaiting')
+            ->with('success', '✅ Votre demande de vérification a été soumise avec succès. Elle sera examinée par l’administration.');
     }
 }

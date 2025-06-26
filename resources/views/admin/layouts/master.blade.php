@@ -24,7 +24,7 @@
             <!-- Sidebar -->
             <aside class="col-md-2 sidebar d-none d-md-block p-0">
                 <h4 class="text-center py-3 border-bottom">Admin</h4>
-                <a href="{{ route('admin.dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                {{-- <a href="{{ route('admin.dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a> --}}
                 <form action="{{ route('admin.logout') }}" method="POST" class="mt-4 text-center">
                     @csrf
                     <button class="btn btn-danger btn-sm"><i class="bi bi-box-arrow-right"></i> Déconnexion</button>

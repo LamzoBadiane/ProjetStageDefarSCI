@@ -49,9 +49,9 @@
                         <td>{{ $company->sector ?? 'Non précisé' }}</td>
                         <td>
                             <span class="badge 
-                                @if($company->status == 'validated') bg-success
-                                @elseif($company->status == 'pending') bg-warning
-                                @elseif($company->status == 'rejected') bg-danger
+                                @if($company->status == 'Validée') bg-success
+                                @elseif($company->status == 'En attente') bg-warning
+                                @elseif($company->status == 'Refusée') bg-danger
                                 @else bg-secondary
                                 @endif">
                                 {{ ucfirst($company->status) }}

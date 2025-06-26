@@ -18,7 +18,7 @@ class EnsureCompanyIsVerified
 
         // Redirection vers le formulaire de vérification si infos manquantes
         if (
-            $company->status === 'pending' &&
+            $company->status === 'En attente' &&
             (
                 !$company->ninea ||
                 !$company->rccm ||

@@ -67,4 +67,17 @@ class CompanyController extends Controller
 
         return back()->with('success', '🗑️ Entreprise supprimée.');
     }
+
+    public function updateStatus(Request $request, Company $company)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:en attente,validée,refusée',
+        ]);
+
+        $company->status = $validated['status'];
+        $company->rejected_at = $validated['status'] === 'refusée' ? now() : null;
+        $company->save();
+
+        return back()->with('success', '✅ Statut mis à jour avec succès.');
+    }
 }
