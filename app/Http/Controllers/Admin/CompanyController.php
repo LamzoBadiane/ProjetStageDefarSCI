@@ -30,15 +30,19 @@ class CompanyController extends Controller
         return view('admin.companies.show', compact('company'));
     }
 
-    public function validateCompany($id) {
+    public function validateCompany($id)
+    {
         $company = Company::findOrFail($id);
-        $company->update(['status' => 'validée', 'rejected_at' => null]);
+        $company->update(['status' => 'Validée', 'rejected_at' => null]);
+
         return back()->with('success', '✅ Entreprise validée.');
     }
 
-    public function refuseCompany($id) {
+    public function refuseCompany($id)
+    {
         $company = Company::findOrFail($id);
-        $company->update(['status' => 'refusée', 'rejected_at' => now()]);
+        $company->update(['status' => 'Refusée', 'rejected_at' => now()]);
+
         return back()->with('danger', '❌ Entreprise refusée.');
     }
 
@@ -47,10 +51,10 @@ class CompanyController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
-            'sector' => 'nullable|string|max:255',
+            'sector' => 'nullable|stri  ng|max:255',
             'contact_name' => 'nullable|string|max:255',
             'contact_phone' => 'nullable|string|max:20',
-            'status' => 'required|in:validated,pending,rejected',
+            'status' => 'required|in:validée,en attente,refusée',
         ]);
 
         $company->update($request->only([
@@ -71,7 +75,7 @@ class CompanyController extends Controller
     public function updateStatus(Request $request, Company $company)
     {
         $validated = $request->validate([
-            'status' => 'required|in:en attente,validée,refusée',
+            'status' => 'required|in:validée,en attente,refusée',
         ]);
 
         $company->status = $validated['status'];

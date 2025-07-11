@@ -30,7 +30,14 @@
                         <td>{{ $application->id }}</td>
                         <td>{{ $application->offer->title }}</td>
                         <td>{{ $application->offer->company->name ?? '—' }}</td>
-                        <td>{{ $application->user->name ?? '—' }}</td>
+                        <td>
+                            @if($application->user)
+                                <i class="bi bi-person-circle me-1 text-primary"></i>
+                                <strong>{{ $application->user->first_name }} {{ $application->user->name }}</strong>
+                            @else
+                                —
+                            @endif
+                        </td>
                         <td>{{ $application->created_at->format('d/m/Y') }}</td>
                         <td>
                             <a href="{{ route('admin.applications.show', $application->id) }}" class="btn btn-sm btn-primary">

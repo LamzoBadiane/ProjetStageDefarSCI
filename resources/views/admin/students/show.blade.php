@@ -14,26 +14,10 @@
             <i class="bi bi-info-circle"></i> Informations personnelles
         </div>
         <div class="card-body">
-            <p><strong>Nom complet :</strong> {{ $student->student->first_name }} {{ $student->student->last_name }}</p>
+            <p><strong>Nom complet :</strong> {{ $student->first_name }} </p>
             <p><strong>Nom d’utilisateur :</strong> {{ $student->name }}</p>
             <p><strong>Email :</strong> {{ $student->email }}</p>
             <p><strong>Date d’inscription :</strong> {{ $student->created_at->format('d/m/Y à H:i') }}</p>
-        </div>
-    </div>
-
-    <!-- CV -->
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-header bg-info text-white">
-            <i class="bi bi-file-earmark-person"></i> CV
-        </div>
-        <div class="card-body">
-            @if($student->student->cv)
-                <a href="{{ asset('storage/cv/' . $student->student->cv) }}" target="_blank" class="btn btn-outline-primary">
-                    <i class="bi bi-download"></i> Télécharger le CV
-                </a>
-            @else
-                <p class="text-muted">Aucun CV disponible.</p>
-            @endif
         </div>
     </div>
 
@@ -95,7 +79,7 @@
                             <strong>Poste :</strong> {{ $interview->offer->title ?? 'Offre inconnue' }} <br>
                             <strong>Date :</strong> {{ \Carbon\Carbon::parse($interview->date)->format('d/m/Y') }} à {{ $interview->time }}<br>
                             <strong>Mode :</strong> {{ ucfirst($interview->mode) }} <br>
-                            <strong>Statut :</strong> 
+                            <strong>Statut :</strong>
                             <span class="badge bg-{{ $interview->status === 'prévu' ? 'primary' : ($interview->status === 'terminé' ? 'success' : 'secondary') }}">
                                 {{ ucfirst($interview->status) }}
                             </span>

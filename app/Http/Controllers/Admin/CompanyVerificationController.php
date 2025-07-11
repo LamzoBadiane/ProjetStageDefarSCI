@@ -10,20 +10,14 @@ class CompanyVerificationController extends Controller
 {
     public function index(Request $request)
     {
-        $companies = Company::where('status', 'pending')->orderBy('created_at', 'desc')->paginate(10);
+        $companies = Company::where('status', 'en attente')->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.companies.verification.index', compact('companies'));
-    }
-
-    public function show($id)
-    {
-        $company = Company::findOrFail($id);
-        return view('admin.companies.verification.show', compact('company'));
     }
 
     public function approve($id)
     {
         $company = Company::findOrFail($id);
-        $company->update(['status' => 'validated']);
+        $company->update(['status' => 'validée']);
 
         return redirect()->route('admin.verifications.index')->with('success', '✅ Entreprise validée.');
     }
@@ -31,7 +25,7 @@ class CompanyVerificationController extends Controller
     public function reject($id)
     {
         $company = Company::findOrFail($id);
-        $company->update(['status' => 'rejected']);
+        $company->update(['status' => 'refusée']);
 
         return redirect()->route('admin.verifications.index')->with('danger', '❌ Entreprise refusée.');
     }

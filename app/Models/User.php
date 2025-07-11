@@ -38,6 +38,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(\App\Models\student::class);
     }
+    public function interviews()
+    {
+        return $this->hasMany(Interview::class);
+    }
     public function fullName()
     {
         if ($this->student) {

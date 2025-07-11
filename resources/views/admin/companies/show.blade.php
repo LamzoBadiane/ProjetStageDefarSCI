@@ -31,7 +31,7 @@
                     <p><strong>Adresse :</strong> {{ $company->address }}</p>
                     <p><strong>Secteur :</strong> {{ $company->sector }}</p>
                     <p><strong>Statut :</strong>
-                        <span class="badge 
+                        <span class="badge
                             @if($company->status === 'validée') bg-success
                             @elseif($company->status === 'en attente') bg-warning
                             @elseif($company->status === 'refusée') bg-danger
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <!-- Actions Admin -->
+    <!-- Formulaire modification statut -->
     <div class="mb-4">
         <form method="POST" action="{{ route('admin.companies.updateStatus', $company) }}" class="d-flex align-items-center gap-3">
             @csrf
