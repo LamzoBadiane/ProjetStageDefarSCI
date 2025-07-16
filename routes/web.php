@@ -34,7 +34,7 @@ use App\Http\Controllers\Admin\SettingController;
 
 
 // 🌍 Page d'accueil
-Route::get('/', fn () => view('welcome'));
+Route::get('/', fn () => view('welcome'))->name('welcome');
 
 // 🔐 Redirection selon rôle
 Route::get('/dashboard', [RedirectController::class, 'index'])

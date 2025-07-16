@@ -20,7 +20,7 @@
     }
 
     .login-card .card-header {
-        background-color: #343a40;
+        background-color: #2c3e50;
         color: white;
         text-align: center;
         padding: 1.5rem;
@@ -33,22 +33,22 @@
     }
 
     .form-control:focus {
-        border-color: #343a40;
-        box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+        border-color: #2c3e50;
+        box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.25);
     }
 
     .btn-dark {
-        background-color: #343a40;
-        border-color: #343a40;
+        background-color: #2c3e50;
+        border-color: #2c3e50;
     }
 
     .btn-dark:hover {
-        background-color: #23272b;
-        border-color: #1d2124;
+        background-color: #1a252f;
+        border-color: #161e26;
     }
 
     .card-footer a {
-        color: #343a40;
+        color: #2c3e50;
         text-decoration: none;
         font-weight: 500;
     }

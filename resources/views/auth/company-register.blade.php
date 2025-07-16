@@ -4,7 +4,7 @@
 <div class="row justify-content-center">
     <div class="col-md-10 col-lg-8">
         <div class="card shadow-lg border-0">
-            <div class="card-header text-center text-white" style="background-color: #343a40;">
+            <div class="card-header text-center text-white" style="background-color: #2c3e50;">
                 <h3 class="mb-0">🏢 Créer un compte Entreprise</h3>
                 <small>Rejoignez notre plateforme et publiez vos offres</small>
             </div>
@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
+                <form method="POST" action="{{ route('company.register') }}" class="needs-validation" novalidate>
                     @csrf
 
                     <div class="mb-4 text-center">
@@ -76,20 +76,114 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="first_name" class="form-label">Prénom *</label>
+                            <label for="contact_name" class="form-label">Nom du contact *</label>
                             <input type="text"
-                                   class="form-control @error('first_name') is-invalid @enderror"
-                                   name="first_name"
-                                   id="first_name"
-                                   value="{{ old('first_name') }}"
+                                   class="form-control @error('contact_name') is-invalid @enderror"
+                                   name="contact_name"
+                                   id="contact_name"
+                                   value="{{ old('contact_name') }}"
                                    required>
-                            @error('first_name')
+                            @error('contact_name')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="contact_email" class="form-label">Email professionnel *</label>
+                            <input type="email"
+                                   class="form-control @error('contact_email') is-invalid @enderror"
+                                   name="contact_email"
+                                   id="contact_email"
+                                   value="{{ old('contact_email') }}"
+                                   required>
+                            @error('contact_email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contact_phone" class="form-label">Téléphone *</label>
+                        <input type="text"
+                               class="form-control @error('contact_phone') is-invalid @enderror"
+                               name="contact_phone"
+                               id="contact_phone"
+                               value="{{ old('contact_phone') }}"
+                               required>
+                        @error('contact_phone')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-4 text-center">
+                        <h5 class="text-dark">Adresse de l'entreprise</h5>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Adresse *</label>
+                        <input type="text"
+                               class="form-control @error('address') is-invalid @enderror"
+                               name="address"
+                               id="address"
+                               value="{{ old('address') }}"
+                               required>
+                        @error('address')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="city" class="form-label">Ville *</label>
+                            <input type="text"
+                                   class="form-control @error('city') is-invalid @enderror"
+                                   name="city"
+                                   id="city"
+                                   value="{{ old('city') }}"
+                                   required>
+                            @error('city')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="postal_code" class="form-label">Code postal *</label>
+                            <input type="text"
+                                   class="form-control @error('postal_code') is-invalid @enderror"
+                                   name="postal_code"
+                                   id="postal_code"
+                                   value="{{ old('postal_code') }}"
+                                   required>
+                            @error('postal_code')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="country" class="form-label">Pays *</label>
+                            <input type="text"
+                                   class="form-control @error('country') is-invalid @enderror"
+                                   name="country"
+                                   id="country"
+                                   value="{{ old('country') }}"
+                                   required>
+                            @error('country')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-4 text-center">
+                        <h5 class="text-dark">Informations de connexion</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email de connexion *</label>
                             <input type="email"
                                    class="form-control @error('email') is-invalid @enderror"
                                    name="email"
@@ -100,12 +194,6 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="mb-4 text-center">
-                        <h5 class="text-dark">Informations de connexion</h5>
                     </div>
 
                     <div class="row">
@@ -131,10 +219,8 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="role" value="company">
-
                     <div class="d-grid mt-4">
-                        <button type="submit" class="btn text-white py-2 fw-bold" style="background-color: #343a40;">
+                        <button type="submit" class="btn text-white py-2 fw-bold" style="background-color: #2c3e50;">
                             Créer mon compte entreprise
                         </button>
                     </div>
@@ -166,8 +252,8 @@
     }
 
     .form-control:focus {
-        border-color: #343a40;
-        box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+        border-color: #2c3e50;
+        box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.25);
     }
 </style>
 @endsection

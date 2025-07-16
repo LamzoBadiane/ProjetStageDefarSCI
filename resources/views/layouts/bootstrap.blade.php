@@ -56,7 +56,7 @@
     {{-- NAVBAR --}}
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand text-white fw-bold" href="#">🎓 JobPlatform</a>
+            <a class="navbar-brand text-white fw-bold" href="{{ route('welcome') }}">🎓 JobPlatform</a>
 
             <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>

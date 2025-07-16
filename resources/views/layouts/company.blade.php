@@ -36,7 +36,7 @@
 
         .sidebar {
             height: 100vh;
-            background-color: #343a40;
+            background-color: #2c3e50;
             color: #fff;
             position: fixed;
             top: 0;
@@ -148,7 +148,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #4fc3f7, #495057, #343a40);
+            background: linear-gradient(90deg, #4fc3f7, #495057, #2c3e50);
             border-radius: 20px 0 0 0;
         }
 
@@ -194,7 +194,7 @@
         }
 
         footer {
-            background-color: #343a40;
+            background-color: #2c3e50;
             color: #fff;
             text-align: center;
             padding: 12px;
